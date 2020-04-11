@@ -435,5 +435,3 @@ mi estimate, vartable nocitable
 
 log close
 exit
-
-*this is a test of my ability to commit to git*
