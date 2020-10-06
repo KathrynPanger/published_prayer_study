@@ -236,7 +236,7 @@ generate sexhowangry = sex_recode * howangry
 generate sexangrysource = sex_recode * angrysource
 
 generate raceage = race_recode * age_centered
-generate racecollege = race_recode * age_centered
+generate racecollege = race_recode * college
 generate raceregion = race_recode * south
 generate racemarital = race_recode * marital_recode
 generate raceparent = race_recode * parent
