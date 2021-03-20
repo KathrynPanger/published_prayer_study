@@ -5,26 +5,34 @@ def summarize(*args):
     #dependencies
     import pandas as pd
     import matplotlib.pyplot as plt
+    import numpy as np
     #define arguments
     dataframe=args[0]
     variable= args[1]
     dfvar=dataframe[variable]
-    obs=len(dfvar)
-    maxvalue=max(dfvar)
-    minvalue=min(dfvar)
-    Q1=dfvar.quantile(q=0.25)
-    Q2=dfvar.quantile(q=0.5)
-    Q3=dfvar.quantile(q=0.75)
-    mean=dfvar.mean()
-    std=dfvar.std()
-
-    summary=pd.DataFrame({'Obs' : [obs], "Max" : [maxvalue], "Min" : [minvalue], "Q1" : [Q1], "Median" : [Q2], "Q3" : [Q3], "Mean" : [mean], "Std" : [std]})
-    print(summary)
+    description=dfvar.describe()
+    print(description)
     print("\n")
-    hist=plt.hist(dfvar)
-    plt.savefig(f"../figures/Histogram_{variable}.png")
-    plt.show()
-    print(hist)
+    if dfvar.dtype == "int64":
+        cats=set(dfvar)
+        print("Obs per category")
+        print("------------------")
+        for item in cats:
+           count=len(dataframe.loc[dfvar == item])
+           percent=round(count/len(dfvar)*100, 2)
+           print(f"{item}-> {count} ({percent}%)")
+        values=list(set(dfvar))
+        marks= len(values)
+        hist=plt.hist(dfvar, bins=len(values))
+        plt.xticks(ticks=values)
+        plt.savefig(f"../figures/Histogram_{variable}.png")
+        plt.show()
+        print(hist)
+    else:
+        hist=plt.hist(dfvar, bins=10)
+        plt.savefig(f"../figures/Histogram_{variable}.png")
+        plt.show()
+        print(hist)
 ##################
 #Linear Regression
 ##################
